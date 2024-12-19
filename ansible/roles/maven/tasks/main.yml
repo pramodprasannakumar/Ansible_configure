@@ -1,7 +1,0 @@
----
-- name: Install Maven
-  ansible.builtin.yum:
-    name: maven
-    state: latest
-  become: yes
-

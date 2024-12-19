@@ -1,6 +1,0 @@
----
-- name: Install java
-  ansible.builtin.yum:
-    name: java-17-amazon-corretto-devel
-    state: present
-  become: yes
