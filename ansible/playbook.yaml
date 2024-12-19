@@ -5,4 +5,6 @@
    # - java
    # - git
    # - tomcat
-    - jenkins
+   # - jenkins
+   # - maven
+    - nexus
