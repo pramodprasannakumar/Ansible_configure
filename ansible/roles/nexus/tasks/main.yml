@@ -1,0 +1,59 @@
+---
+# Step 1: Create Nexus User
+- name: Create nexus user
+  ansible.builtin.user:
+    name: nexususer
+    state: present
+    shell: /bin/bash
+  become: yes
+
+# Step 2: Download the Nexus tar.gz package
+- name: Download Nexus tar.gz file
+  ansible.builtin.get_url:
+    url: https://download.sonatype.com/nexus/3/nexus-3.72.0-04-unix.tar.gz
+    dest: /home/nexususer/nexus-3.72.0-04-unix.tar.gz
+  become: yes
+
+# Step 3: Untar the Nexus tar.gz package
+- name: Untar Nexus package
+  ansible.builtin.unarchive:
+    src: /home/nexususer/nexus-3.72.0-04-unix.tar.gz
+    dest: /home/nexususer
+    mode: '0777'
+    owner: nexususer
+    group: nexususer
+    remote_src: yes   # Added remote_src option here
+  become: yes
+
+# Step 4: Remove the tar file after extraction
+- name: Remove Nexus tar file
+  ansible.builtin.file:
+    path: /home/nexususer/nexus-3.72.0-04-unix.tar.gz
+    state: absent
+  become: yes
+
+# Step 5: Copy the Nexus systemd service file
+- name: Copy Nexus systemd service file
+  ansible.builtin.copy:
+    src: /etc/ansible/nexus.service
+    dest: /etc/systemd/system/nexus.service
+    owner: nexususer
+    group: nexususer
+    mode: '0777'
+  become: yes
+
+# Step 6: Reload systemd to acknowledge the Nexus service
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    name: nexus
+    daemon_reload: yes
+  become: yes
+
+# Step 7: Enable Nexus service to start on boot and start the service
+- name: Enable and start Nexus service
+  ansible.builtin.systemd:
+    name: nexus
+    enabled: yes
+    state: started
+  become: yes
+
