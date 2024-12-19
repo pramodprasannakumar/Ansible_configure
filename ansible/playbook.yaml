@@ -1,0 +1,8 @@
+---
+- name: Performing the task
+  hosts: assignment
+  roles: 
+   # - java
+   # - git
+   # - tomcat
+    - jenkins
