@@ -8,8 +8,10 @@ LimitNOFILE=65536
 ExecStart=/home/nexususer/nexus-3.72.0-04/bin/nexus start
 ExecStop=/home/nexususer/nexus-3.72.0-04/bin/nexus stop
 User=nexususer
+Group=nexususer
 Restart=on-abort
 TimeoutSec=600
 
 [Install]
 WantedBy=multi-user.target
+

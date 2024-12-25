@@ -2,10 +2,10 @@
 - name: Performing the task
   hosts: assignment
   roles: 
-   # - java
-   # - git
+    - java
+    - git
    # - tomcat
    # - jenkins
-   # - maven
+    - maven
    # - nexus
-    - sonarqube
+   # - sonarqube

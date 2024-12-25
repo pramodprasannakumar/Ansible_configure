@@ -14,15 +14,21 @@
     dest: /home/nexususer/nexus-3.72.0-04-unix.tar.gz
   become: yes
 
-# Step 3: Untar the Nexus tar.gz package
+# Step 3: Untar the Nexus tar.gz package and set ownership/permissions
 - name: Untar Nexus package
   ansible.builtin.unarchive:
     src: /home/nexususer/nexus-3.72.0-04-unix.tar.gz
     dest: /home/nexususer
+    remote_src: yes   # Indicates the file is already on the remote system
     mode: '0777'
+  become: yes
+
+- name: Set ownership and permissions for Nexus files
+  ansible.builtin.file:
+    path: /home/nexususer/nexus-3.72.0-04
     owner: nexususer
     group: nexususer
-    remote_src: yes   # Added remote_src option here
+    recurse: yes
   become: yes
 
 # Step 4: Remove the tar file after extraction
@@ -32,7 +38,7 @@
     state: absent
   become: yes
 
-# Step 5: Copy the Nexus systemd service file
+# Step 5: Copy the Nexus systemd service file with correct permissions
 - name: Copy Nexus systemd service file
   ansible.builtin.copy:
     src: /etc/ansible/nexus.service
