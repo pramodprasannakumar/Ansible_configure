@@ -1,0 +1,14 @@
+---
+- name: Performing the task
+  hosts: assignment
+  roles: 
+    #- java
+   # - git
+   # - tomcat
+   # - jenkins
+   # - maven
+   # - nexus
+  #  - sonarqube
+   # - gradle
+   # - junit
+    - k8s
