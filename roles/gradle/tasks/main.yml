@@ -51,15 +51,17 @@
     mode: '755'
   become: yes
   become_user: root
+  
+- name: source/reload the script
+  shell: source /etc/profile.d/gradle.sh
+  shell: cd
 
-#- name: source/reload the script
-  #shell: source /etc/profile.d/gradle.sh
+- name: Verify gradle installation
+  command: /opt/gradle/gradle-8.3/bin/gradle -version
+  register: gradle_output
+  become: yes
+  become_user: root
 
-#- name: Verify gradle installation
-  #command: gradle -version
-  #register: gardle_output
-  #become: yes
-
-#- name: debug gradle version
-  #debug:
-    #msg: "{{ gradle_output.stdout }}"
+- name: debug gradle version
+  debug:
+    msg: "{{ gradle_output.stdout }}"

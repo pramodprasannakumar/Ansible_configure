@@ -1,10 +1,5 @@
 ---
 # tasks file for junit_jacoco
-
-- name: Debug install_dir variable
-  debug:
-    msg: "The install directory is {{ install_dir }}"
-
 - name: Creating the directory
   ansible.builtin.file:
     path: "{{ install_dir }}"
@@ -21,7 +16,7 @@
     mode: '644'
   become: yes
 
-# Download the Hamcrest as it is the dependency for Junit
+#Download the Hamcrest as it is the dependency for the Junit
 - name: Download Hamcrest
   ansible.builtin.get_url:
     url: "{{ hamcrest_url }}"
@@ -57,4 +52,3 @@
     path: /tmp/jacoco.zip
     state: absent
   become: yes
-

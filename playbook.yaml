@@ -10,5 +10,5 @@
    # - nexus
   #  - sonarqube
    # - gradle
-   # - junit
+   # - junit_jacoco
     - k8s
